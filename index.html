@@ -4,31 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light" />
-    <title>오늘의 추천 | 삼성생명</title>
+    <title>오늘의 추천 | 랜딩페이지</title>
+    <style>
+      @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+    </style>
     <style>
       :root {
-        --bg: #f5f4ef;
-        --bg-soft: #faf8f2;
-        --surface: rgba(255, 255, 255, 0.82);
-        --surface-strong: rgba(255, 255, 255, 0.94);
-        --text: #0f1014;
-        --muted: rgba(15, 16, 20, 0.62);
-        --muted-strong: rgba(15, 16, 20, 0.78);
-        --line: rgba(15, 16, 20, 0.1);
-        --line-strong: rgba(15, 16, 20, 0.18);
-        --black: #0e0f12;
-        --blue: #4f66ff;
-        --sky: #19a8ff;
-        --lime: #c9ff3c;
-        --pink: #ff69bf;
-        --peach: #ff8e63;
-        --shadow: 0 18px 50px rgba(20, 24, 34, 0.08);
-        --shadow-strong: 0 30px 80px rgba(20, 24, 34, 0.12);
+        --bg: #f4f6f8;
+        --paper: rgba(255, 255, 255, 0.9);
+        --paper-strong: rgba(255, 255, 255, 0.98);
+        --text: #0f1115;
+        --muted: rgba(15, 17, 21, 0.68);
+        --accent: #111111;
+        --yellow: #ffe36e;
+        --sky: #44b7ff;
+        --pink: #ff6acb;
+        --mint: #72f0b7;
+        --shadow: 0 24px 60px rgba(19, 23, 30, 0.12);
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       html {
         color-scheme: light;
@@ -38,13 +33,16 @@
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         color: var(--text);
+        font-family: Pretendard, "Pretendard Variable", "SUIT", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+        font-feature-settings: "ss01" 1, "ss02" 1;
+        text-rendering: geometricPrecision;
         background:
-          radial-gradient(circle at 10% 10%, rgba(79, 102, 255, 0.12), transparent 22%),
-          radial-gradient(circle at 88% 16%, rgba(25, 168, 255, 0.12), transparent 20%),
-          radial-gradient(circle at 50% 95%, rgba(255, 105, 191, 0.08), transparent 28%),
-          linear-gradient(180deg, #fbfbf8 0%, var(--bg) 46%, #f0f1ed 100%);
+          radial-gradient(circle at 10% 10%, rgba(255, 227, 110, 0.6), transparent 18%),
+          radial-gradient(circle at 88% 14%, rgba(255, 106, 203, 0.18), transparent 16%),
+          radial-gradient(circle at 84% 84%, rgba(68, 183, 255, 0.16), transparent 19%),
+          radial-gradient(circle at 15% 84%, rgba(114, 240, 183, 0.14), transparent 18%),
+          linear-gradient(180deg, #fbfcfd 0%, var(--bg) 42%, #eef1f5 100%);
         overflow-x: hidden;
       }
 
@@ -54,12 +52,11 @@
         inset: 0;
         pointer-events: none;
         background-image:
-          linear-gradient(rgba(15, 16, 20, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(15, 16, 20, 0.03) 1px, transparent 1px);
-        background-size: 68px 68px;
-        mask-image: radial-gradient(circle at center, black 46%, transparent 100%);
-        opacity: 0.45;
-        z-index: 0;
+          linear-gradient(rgba(15, 17, 21, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15, 17, 21, 0.03) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
+        opacity: 0.34;
       }
 
       body::after {
@@ -68,9 +65,13 @@
         inset: 0;
         pointer-events: none;
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 16%, transparent 84%, rgba(255, 255, 255, 0.24)),
-          radial-gradient(circle at center, transparent 46%, rgba(255, 255, 255, 0.12) 100%);
-        z-index: 0;
+          radial-gradient(circle at 18% 22%, rgba(255, 227, 110, 0.28), transparent 0 16%, transparent 17%),
+          radial-gradient(circle at 82% 14%, rgba(255, 106, 203, 0.2), transparent 0 12%, transparent 13%),
+          radial-gradient(circle at 86% 76%, rgba(68, 183, 255, 0.16), transparent 0 14%, transparent 15%),
+          radial-gradient(circle at 16% 84%, rgba(114, 240, 183, 0.15), transparent 0 13%, transparent 14%),
+          radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.28), transparent 0 44%, transparent 45%);
+        filter: blur(1.5px);
+        opacity: 0.9;
       }
 
       .page {
@@ -79,12 +80,12 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        gap: 1.4rem;
-        padding: clamp(1rem, 2vw, 2rem);
+        gap: 0.95rem;
+        padding: clamp(0.9rem, 1.8vw, 1.75rem);
       }
 
       .frame {
-        width: min(100%, 1200px);
+        width: min(100%, 1220px);
         margin: 0 auto;
       }
 
@@ -93,179 +94,258 @@
         justify-content: space-between;
         align-items: center;
         gap: 1rem;
-        padding: 0.2rem 0.15rem 0.4rem;
+        margin-bottom: 0.25rem;
       }
 
       .brand {
         display: inline-flex;
         align-items: center;
         gap: 0.65rem;
-        font-size: 0.86rem;
+        font-size: 0.82rem;
         font-weight: 800;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
       }
 
       .brand-mark {
-        width: 1.05rem;
-        height: 1.05rem;
-        border-radius: 0.24rem;
-        background: linear-gradient(135deg, var(--blue), var(--pink));
-        box-shadow: 0 0 0 0.3rem rgba(79, 102, 255, 0.1);
+        width: 1rem;
+        height: 1rem;
+        background: var(--accent);
+        box-shadow: inset 0 0 0 0.18rem var(--yellow);
       }
 
       .topbar-note {
-        font-size: 0.8rem;
         color: var(--muted);
-        letter-spacing: 0.08em;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
         text-transform: uppercase;
+      }
+
+      .topbar-actions {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .copy-link-btn {
+        appearance: none;
+        border: 3px solid var(--accent);
+        background: var(--paper-strong);
+        color: var(--text);
+        padding: 0.55rem 0.8rem;
+        font: inherit;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 4px 4px 0 rgba(15, 17, 21, 0.16);
+      }
+
+      .copy-link-btn:active {
+        transform: translate(1px, 1px);
+        box-shadow: 3px 3px 0 rgba(15, 17, 21, 0.16);
+      }
+
+      .copy-link-status {
+        color: var(--muted);
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
       }
 
       .hero {
         position: relative;
         overflow: hidden;
+        border: 3px solid rgba(15, 17, 21, 0.98);
         border-radius: 34px;
-        border: 1px solid var(--line);
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 248, 244, 0.84)),
-          radial-gradient(circle at 14% 0%, rgba(79, 102, 255, 0.1), transparent 30%),
-          radial-gradient(circle at 100% 0%, rgba(25, 168, 255, 0.08), transparent 28%);
-        box-shadow: var(--shadow-strong);
+          linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(249, 249, 244, 0.86)),
+          radial-gradient(circle at 18% 6%, rgba(255, 227, 110, 0.34), transparent 0 16%, transparent 17%),
+          radial-gradient(circle at 88% 8%, rgba(255, 106, 203, 0.22), transparent 0 11%, transparent 12%),
+          radial-gradient(circle at 86% 82%, rgba(68, 183, 255, 0.18), transparent 0 14%, transparent 15%),
+          radial-gradient(circle at 8% 86%, rgba(114, 240, 183, 0.16), transparent 0 13%, transparent 14%);
+        box-shadow: var(--shadow);
       }
 
       .hero::before {
         content: "";
         position: absolute;
         inset: 0;
-        background:
-          linear-gradient(135deg, rgba(79, 102, 255, 0.08), transparent 26%, transparent 74%, rgba(255, 105, 191, 0.08)),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent 18%);
         pointer-events: none;
+        background:
+          linear-gradient(135deg, transparent 0 34%, rgba(255, 255, 255, 0.18) 34% 66%, transparent 66% 100%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.32), transparent 20%, transparent 80%, rgba(255, 255, 255, 0.18));
       }
 
       .hero-grid {
         position: relative;
         display: grid;
-        grid-template-columns: minmax(0, 1.45fr) minmax(270px, 0.9fr);
-        gap: clamp(1.2rem, 3vw, 2.4rem);
+        grid-template-columns: minmax(0, 1.3fr) minmax(290px, 0.85fr);
+        gap: clamp(1rem, 2.4vw, 2rem);
         align-items: end;
-        padding: clamp(1.3rem, 3vw, 2.8rem);
+        padding: clamp(1rem, 2.4vw, 2rem);
       }
 
       .eyebrow {
         display: inline-flex;
         align-items: center;
-        gap: 0.55rem;
-        padding: 0.5rem 0.8rem;
-        border-radius: 999px;
-        border: 1px solid rgba(15, 16, 20, 0.08);
-        background: rgba(255, 255, 255, 0.7);
-        color: var(--muted-strong);
-        font-size: 0.76rem;
+        padding: 0.45rem 0.72rem;
+        border: 3px solid var(--accent);
+        background: var(--yellow);
+        font-size: 0.7rem;
         font-weight: 800;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.03em;
         text-transform: uppercase;
-      }
-
-      .eyebrow::before {
-        content: "";
-        width: 0.44rem;
-        height: 0.44rem;
-        border-radius: 50%;
-        background: var(--blue);
-        box-shadow: 0 0 0 0.2rem rgba(79, 102, 255, 0.12);
+        box-shadow: 4px 4px 0 var(--accent);
       }
 
       .hero-title {
-        margin: 0.9rem 0 0;
-        font-size: clamp(3.2rem, 7.6vw, 7.2rem);
+        margin: 0.85rem 0 0;
+        font-size: clamp(3.1rem, 8vw, 7rem);
         line-height: 0.9;
         letter-spacing: -0.1em;
         text-wrap: balance;
+        font-weight: 900;
       }
 
-      .hero-title strong {
-        display: inline-block;
-        color: var(--black);
+      .hero-date {
+        margin: 0.85rem 0 0;
+        color: var(--text);
+        font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
       }
 
       .hero-copy {
-        margin: 1rem 0 0;
-        max-width: 34rem;
-        color: var(--muted-strong);
-        font-size: clamp(0.98rem, 1.45vw, 1.08rem);
-        line-height: 1.7;
-      }
-
-      .hero-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.95rem;
-      }
-
-      .meta-card {
-        padding: 1.25rem 1.2rem;
-        border-radius: 24px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow: var(--shadow);
-      }
-
-      .meta-label {
-        margin: 0 0 0.45rem;
+        margin: 0.6rem 0 0;
+        max-width: 31rem;
         color: var(--muted);
-        font-size: 0.77rem;
-        font-weight: 800;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
+        font-size: clamp(0.92rem, 1.1vw, 0.98rem);
+        line-height: 1.62;
+        letter-spacing: -0.03em;
       }
 
-      .meta-value {
-        margin: 0;
-        font-size: clamp(1.15rem, 2vw, 1.6rem);
-        line-height: 1.2;
+      .hero-summary {
+        position: relative;
+        overflow: hidden;
+        margin: 0.9rem 0 0;
+        padding: 0.98rem 5.6rem 0.98rem 1.05rem;
+        border: 3px solid var(--accent);
+        border-radius: 20px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.9)),
+          radial-gradient(circle at 10% 20%, rgba(255, 227, 110, 0.2), transparent 0 18%, transparent 19%),
+          radial-gradient(circle at 94% 16%, rgba(255, 106, 203, 0.14), transparent 0 13%, transparent 14%);
+        box-shadow: 6px 6px 0 rgba(15, 17, 21, 0.12);
+        font-size: clamp(0.98rem, 1.45vw, 1.08rem);
+        line-height: 1.55;
+        font-weight: 800;
         letter-spacing: -0.05em;
       }
 
-      .meta-note {
-        margin: 0.55rem 0 0;
-        color: var(--muted);
-        font-size: 0.94rem;
-        line-height: 1.6;
+      .hero-summary::before {
+        content: "오늘 한 줄";
+        position: absolute;
+        top: 0.7rem;
+        right: 0.75rem;
+        padding: 0.22rem 0.44rem;
+        border: 2px solid var(--accent);
+        border-radius: 999px;
+        background: rgba(255, 227, 110, 0.9);
+        color: var(--text);
+        font-size: 0.62rem;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
       }
 
-      .hero-stats {
+      .hero-summary em {
+        font-style: normal;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .hero-panel {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0.8rem;
       }
 
-      .stat {
-        padding: 0.95rem 1rem;
-        border-radius: 18px;
-        border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.72);
+      .info-card {
+        position: relative;
+        overflow: hidden;
+        padding: 0.95rem;
+        border: 3px solid rgba(15, 17, 21, 0.98);
+        background: rgba(255, 255, 255, 0.84);
+        box-shadow: 6px 6px 0 rgba(15, 17, 21, 0.18);
       }
 
-      .stat strong {
-        display: block;
-        font-size: 1.05rem;
-        line-height: 1.1;
-        letter-spacing: -0.04em;
+      .info-card::after {
+        content: "";
+        position: absolute;
+        left: 0.9rem;
+        right: 0.9rem;
+        bottom: 0.72rem;
+        height: 0.42rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--yellow), var(--pink), var(--sky), var(--mint));
+        opacity: 0.72;
       }
 
-      .stat span {
-        display: block;
-        margin-top: 0.35rem;
+      .info-label {
+        margin: 0 0 0.3rem;
         color: var(--muted);
-        font-size: 0.74rem;
-        letter-spacing: 0.1em;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
+      }
+
+      .info-value {
+        margin: 0;
+        font-size: 1.22rem;
+        line-height: 1.08;
+        letter-spacing: -0.06em;
+        font-weight: 800;
+      }
+
+      .info-note {
+        margin: 0.5rem 0 0;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.55;
+        letter-spacing: -0.02em;
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.7rem;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 1.9rem;
+        padding: 0.18rem 0.65rem;
+        border: 3px solid var(--accent);
+        background: var(--paper-strong);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        box-shadow: 3px 3px 0 rgba(15, 17, 21, 0.12);
       }
 
       .section {
         display: grid;
-        gap: 1rem;
+        gap: 0.75rem;
       }
 
       .section-head {
@@ -278,190 +358,199 @@
 
       .section-title {
         margin: 0;
-        font-size: clamp(1.3rem, 2.2vw, 1.75rem);
-        line-height: 1.08;
-        letter-spacing: -0.07em;
+        font-size: clamp(1.25rem, 2vw, 1.7rem);
+        line-height: 1.02;
+        letter-spacing: -0.08em;
+        font-weight: 900;
       }
 
       .section-subtitle {
         margin: 0;
         color: var(--muted);
-        font-size: 0.95rem;
-        line-height: 1.6;
+        font-size: 0.92rem;
+        line-height: 1.5;
+        letter-spacing: -0.02em;
       }
 
-      .recommend-grid {
+      .card-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
+        gap: 0.85rem;
       }
 
-      .recommend-card {
-        min-height: 280px;
+      .slot-card {
         position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 240px;
         overflow: hidden;
-        border-radius: 28px;
-        border: 1px solid rgba(15, 16, 20, 0.1);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(247, 248, 243, 0.82));
-        box-shadow: var(--shadow);
-        padding: 1.15rem;
-        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+        border: 3px solid rgba(15, 17, 21, 0.98);
+        border-radius: 30px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 248, 244, 0.9)),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 45%);
+        box-shadow: 8px 8px 0 rgba(15, 17, 21, 0.12);
+        padding: 0.92rem;
+        transition: transform 180ms ease, box-shadow 180ms ease;
       }
 
-      .recommend-card::before {
+      .slot-card::before {
         content: "";
         position: absolute;
-        inset: auto auto 0 0;
-        width: 100%;
-        height: 56%;
-        background: linear-gradient(135deg, transparent 5%, rgba(255, 255, 255, 0.16) 38%, transparent 64%);
+        inset: -18% -8% auto auto;
+        width: 8.5rem;
+        height: 8.5rem;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 34% 32%, rgba(255, 255, 255, 0.9) 0 16%, transparent 17%),
+          radial-gradient(circle at 50% 50%, var(--card-accent, #ffe36e) 0 42%, transparent 43%);
+        opacity: 0.8;
+        filter: blur(1px);
         pointer-events: none;
       }
 
-      .recommend-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(15, 16, 20, 0.16);
-        box-shadow: 0 24px 54px rgba(20, 24, 34, 0.12);
+      .slot-card::after {
+        content: "";
+        position: absolute;
+        inset: auto -0.35rem -0.35rem auto;
+        width: 4rem;
+        height: 4rem;
+        border: 3px solid rgba(15, 17, 21, 0.92);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.72);
+        transform: rotate(12deg);
+        opacity: 0.35;
+        pointer-events: none;
       }
 
-      .card-topline {
+      .slot-card:nth-child(1) { --card-accent: #ffe36e; background: linear-gradient(180deg, rgba(255, 227, 110, 0.22), rgba(255, 255, 255, 0.96)); }
+      .slot-card:nth-child(2) { --card-accent: #44b7ff; background: linear-gradient(180deg, rgba(68, 183, 255, 0.18), rgba(255, 255, 255, 0.96)); }
+      .slot-card:nth-child(3) { --card-accent: #ff6acb; background: linear-gradient(180deg, rgba(255, 106, 203, 0.16), rgba(255, 255, 255, 0.96)); }
+      .slot-card:nth-child(4) { --card-accent: #72f0b7; background: linear-gradient(180deg, rgba(114, 240, 183, 0.18), rgba(255, 255, 255, 0.96)); }
+
+      .slot-card:hover {
+        transform: translateY(-2px) rotate(-0.25deg);
+        box-shadow: 9px 10px 0 rgba(15, 17, 21, 0.14);
+      }
+
+      .slot-topline {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 1rem;
-        align-items: flex-start;
       }
 
-      .badge {
+      .slot-id {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        padding: 0.42rem 0.68rem;
-        border-radius: 999px;
-        background: rgba(15, 16, 20, 0.9);
-        color: #fff;
-        font-size: 0.72rem;
+        gap: 0.45rem;
+        padding: 0.4rem 0.62rem;
+        border: 3px solid var(--accent);
+        background: var(--paper-strong);
+        font-size: 0.7rem;
         font-weight: 800;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
+        box-shadow: 4px 4px 0 rgba(15, 17, 21, 0.12);
       }
 
-      .badge::before {
+      .slot-id::before {
+        content: "";
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .slot-heading {
+        margin: 0.65rem 0 0;
+        font-size: clamp(1.35rem, 2vw, 1.9rem);
+        line-height: 1.02;
+        letter-spacing: -0.085em;
+        font-weight: 900;
+      }
+
+      .slot-body {
+        margin: 0.55rem 0 0;
+        min-height: 3.7rem;
+        flex: 1 1 auto;
+        color: var(--text);
+        font-size: 0.9rem;
+        line-height: 1.48;
+        letter-spacing: -0.03em;
+        position: relative;
+        z-index: 1;
+      }
+
+      .slot-body em {
+        font-style: normal;
+        color: var(--muted);
+      }
+
+      .slot-infobar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.45rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .metric {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.28rem 0.52rem;
+        border: 2px solid rgba(15, 17, 21, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.84);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        box-shadow: 2px 2px 0 rgba(15, 17, 21, 0.08);
+      }
+
+      .slot-meta {
+        margin-top: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.35rem 0.8rem;
+        padding-top: 0.72rem;
+        border-top: 2px solid rgba(15, 17, 21, 0.92);
+        color: var(--muted);
+        font-size: 0.66rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+      }
+
+      .slot-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .slot-status::before {
         content: "";
         width: 0.4rem;
         height: 0.4rem;
         border-radius: 50%;
-        background: #fff;
-      }
-
-      .drink-name {
-        margin: 0.95rem 0 0;
-        font-size: clamp(1.85rem, 3.2vw, 2.7rem);
-        line-height: 0.94;
-        letter-spacing: -0.08em;
-      }
-
-      .drink-desc {
-        margin: 0.8rem 0 0;
-        max-width: 15rem;
-        color: var(--muted-strong);
-        line-height: 1.65;
-        font-size: 0.93rem;
-      }
-
-      .drink-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-        margin-top: 1rem;
-      }
-
-      .tag {
-        padding: 0.42rem 0.64rem;
-        border-radius: 999px;
-        border: 1px solid rgba(15, 16, 20, 0.08);
-        background: rgba(255, 255, 255, 0.8);
-        color: rgba(15, 16, 20, 0.76);
-        font-size: 0.72rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
-      .art {
-        position: absolute;
-        inset: auto 0 0 auto;
-        width: 58%;
-        height: 58%;
-        border-top-left-radius: 28px;
-        pointer-events: none;
-      }
-
-      .art::before,
-      .art::after {
-        content: "";
-        position: absolute;
-        border-radius: 999px;
-      }
-
-      .art::before {
-        inset: 14% 14% 16% 14%;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.16));
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
-      }
-
-      .art::after {
-        width: 46%;
-        height: 46%;
-        right: 12%;
-        bottom: 12%;
-        border-radius: 50%;
-        opacity: 0.88;
-        filter: blur(0.2px);
-      }
-
-      .art.one {
-        background: linear-gradient(135deg, rgba(201, 255, 60, 0.95), rgba(255, 233, 110, 0.44));
-      }
-
-      .art.one::after {
-        background: radial-gradient(circle at 35% 35%, rgba(15, 16, 20, 0.24), rgba(15, 16, 20, 0) 62%);
-        box-shadow: 0 0 0 1px rgba(15, 16, 20, 0.06);
-      }
-
-      .art.two {
-        background: linear-gradient(135deg, rgba(79, 102, 255, 0.92), rgba(25, 168, 255, 0.36));
-      }
-
-      .art.two::after {
-        background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.48), rgba(255, 255, 255, 0) 64%);
-      }
-
-      .art.three {
-        background: linear-gradient(135deg, rgba(255, 105, 191, 0.9), rgba(255, 185, 87, 0.36));
-      }
-
-      .art.three::after {
-        background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 64%);
-      }
-
-      .art.four {
-        background: linear-gradient(135deg, rgba(37, 36, 33, 0.96), rgba(73, 78, 92, 0.48));
-      }
-
-      .art.four::after {
-        background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0) 62%);
+        background: var(--accent);
       }
 
       .footer {
-        width: min(100%, 1200px);
+        width: min(100%, 1220px);
         margin: auto auto 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: 0.65rem 1rem;
-        padding: 0.15rem 0.2rem 0.25rem;
-        color: rgba(15, 16, 20, 0.54);
-        font-size: 0.76rem;
-        letter-spacing: 0.11em;
+        gap: 0.5rem 1rem;
+        padding: 0.1rem 0.15rem 0.2rem;
+        color: rgba(15, 17, 21, 0.58);
+        font-size: 0.74rem;
+        letter-spacing: 0.03em;
         text-transform: uppercase;
       }
 
@@ -483,58 +572,127 @@
           align-items: flex-start;
         }
 
+        .topbar-actions {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
         .hero-grid {
           grid-template-columns: 1fr;
         }
 
-        .recommend-grid {
+        .card-grid {
           grid-template-columns: 1fr;
         }
       }
 
       @media (max-width: 680px) {
+        .topbar-actions {
+          gap: 0.35rem;
+        }
+
         .page {
-          padding: 0.85rem;
-          gap: 1rem;
+          padding: 0.5rem;
+          gap: 0.55rem;
         }
 
         .hero {
-          border-radius: 26px;
+          border-radius: 24px;
         }
 
         .hero-grid {
-          padding: 1.05rem;
+          padding: 0.8rem;
+          gap: 0.75rem;
         }
 
         .hero-title {
-          font-size: clamp(2.8rem, 13vw, 4.8rem);
+          font-size: clamp(2.4rem, 12vw, 4rem);
+          letter-spacing: -0.095em;
         }
 
-        .hero-stats {
-          grid-template-columns: 1fr;
+        .hero-copy {
+          max-width: 100%;
+          font-size: 0.9rem;
+          line-height: 1.45;
         }
 
-        .recommend-card {
-          min-height: 210px;
+        .hero-summary {
+          margin-top: 0.7rem;
+          padding: 0.7rem 4.4rem 0.7rem 0.78rem;
+          font-size: 0.92rem;
+          line-height: 1.38;
         }
 
-        .art {
-          width: 52%;
-          height: 52%;
+        .info-card {
+          padding: 0.76rem;
         }
+
+        .info-value {
+          font-size: 1.02rem;
+        }
+
+        .section {
+          gap: 0.55rem;
+        }
+
+        .section-head {
+          padding: 0 0.08rem;
+        }
+
+        .section-title {
+          font-size: 1.15rem;
+        }
+
+        .section-subtitle {
+          font-size: 0.82rem;
+          line-height: 1.38;
+        }
+
+        .card-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.5rem;
+        }
+
+      .slot-card {
+        min-height: 178px;
+        padding: 0.72rem;
+        border-radius: 20px;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
+        .slot-heading {
+          margin-top: 0.45rem;
+          font-size: 1.02rem;
         }
 
-        .recommend-card {
-          transition: none;
+      .slot-body {
+        min-height: 2.55rem;
+        flex: 1 1 auto;
+        font-size: 0.76rem;
+        line-height: 1.3;
+        margin-top: 0.35rem;
+      }
+
+        .slot-infobar {
+          margin-top: 0.32rem;
+          gap: 0.24rem;
         }
 
-        .recommend-card:hover {
-          transform: none;
+        .metric {
+          font-size: 0.6rem;
+          padding: 0.18rem 0.38rem;
+        }
+
+      .slot-meta {
+        margin-top: auto;
+        font-size: 0.58rem;
+        padding-top: 0.42rem;
+      }
+
+        .footer {
+          justify-content: center;
+          text-align: center;
+          font-size: 0.68rem;
+          gap: 0.35rem 0.75rem;
         }
       }
     </style>
@@ -545,41 +703,44 @@
         <header class="topbar" aria-label="페이지 상단">
           <div class="brand">
             <span class="brand-mark" aria-hidden="true"></span>
-            <span>Samsung Life</span>
+            <span>Today Picks</span>
           </div>
-          <div class="topbar-note">Today / Cafe Picks</div>
+          <div class="topbar-actions">
+            <div class="topbar-note">Static demo / Daily recommendations</div>
+            <button class="copy-link-btn" id="copyLinkBtn" type="button">링크 복사</button>
+            <span class="copy-link-status" id="copyLinkStatus" aria-live="polite">현재 페이지 주소</span>
+          </div>
         </header>
 
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-grid">
             <div>
-              <p class="eyebrow">임직원 추천 큐레이션</p>
+              <p class="eyebrow">오늘의 추천 랜딩</p>
               <h1 class="hero-title" id="hero-title"><strong>오늘의 추천</strong></h1>
+              <p class="hero-date" id="todayDate">2026년 6월 11일 목요일</p>
               <p class="hero-copy">
-                삼성생명 임직원들이 직접 고른 오늘의 카페 음료를 한 화면에 담았습니다.
-                지금 가장 잘 어울리는 메뉴를 빠르게 훑고, 업무 중 한 잔의 선택을 더 쉽게 만들어요.
+                오늘 바로 확인할 만한 추천만 한 화면에 모았습니다.
+                숫자와 핵심만 남기고, 인포그래픽처럼 읽히도록 정리했습니다.
+              </p>
+              <p class="hero-summary" id="todaySummary">
+                오늘은 🚇 강남역 3분 후 도착, 📊 전국 1인 가구 33.4%, ⚾ 3:2 역전승, 그리고 💧 물 한 컵으로 가볍게 시작해볼까요?
               </p>
             </div>
 
-            <aside class="hero-meta" aria-label="오늘 정보">
-              <div class="meta-card">
-                <p class="meta-label">오늘 날짜</p>
-                <p class="meta-value" id="todayDate">2026년 6월 11일 목요일</p>
-                <p class="meta-note">매일 갱신되는 추천을 위한 날짜 배지입니다.</p>
+            <aside class="hero-panel" aria-label="오늘 정보">
+              <div class="info-card">
+                <p class="info-label">Today</p>
+                <p class="info-value" id="todayDatePanel">2026년 6월 11일 목요일</p>
+                <p class="info-note">고정된 오늘 날짜를 기준으로 표시됩니다.</p>
               </div>
 
-              <div class="hero-stats" aria-label="요약 정보">
-                <div class="stat">
-                  <strong>4종</strong>
-                  <span>오늘의 음료</span>
-                </div>
-                <div class="stat">
-                  <strong>임직원</strong>
-                  <span>추천 기반</span>
-                </div>
-                <div class="stat">
-                  <strong>한 장</strong>
-                  <span>큐레이션 화면</span>
+              <div class="info-card">
+                <p class="info-label">Core Line</p>
+                <p class="info-value">오늘 바로 볼 만한 추천만 선별</p>
+                <div class="chip-row" aria-label="요약 태그">
+                  <span class="chip">DEMO</span>
+                  <span class="chip">KOSIS</span>
+                  <span class="chip">One Page</span>
                 </div>
               </div>
             </aside>
@@ -590,74 +751,88 @@
       <div class="frame section" aria-labelledby="recommend-title">
         <div class="section-head">
           <div>
-            <h2 class="section-title" id="recommend-title">추천 카드</h2>
-            <p class="section-subtitle">음료 이름과 한 줄 이유를 카드형으로 정리한 임직원 추천 영역입니다.</p>
+            <h2 class="section-title" id="recommend-title">추천 카드 자리</h2>
+            <p class="section-subtitle">모든 카드는 데모 고정값으로 채운 정적 버전입니다.</p>
           </div>
         </div>
 
-        <div class="recommend-grid" aria-label="추천 음료 4개">
-          <article class="recommend-card">
-            <div class="card-topline">
-              <span class="badge">Top Pick</span>
-              <span class="tag">Morning</span>
+        <div class="card-grid" aria-label="추천 카드 4개 자리">
+          <article class="slot-card" aria-label="추천 카드 1">
+            <div class="slot-topline">
+              <span class="slot-id">출근길</span>
+              <span class="chip">DEMO</span>
             </div>
-            <h3 class="drink-name">아메리카노</h3>
-            <p class="drink-desc">깔끔한 시작이 필요한 아침에 가장 많이 추천된 기본템.</p>
-            <div class="drink-tags">
-              <span class="tag">산뜻한 산미</span>
-              <span class="tag">업무 시작</span>
+            <h3 class="slot-heading" id="subwayTitle">강남역 도착 예시</h3>
+            <p class="slot-body" id="subwayBody">2호선 강남방면 열차가 3분 후 도착 예정입니다. 5분 뒤 한 대 더 도착합니다.</p>
+            <div class="slot-infobar">
+              <span class="metric" id="subwayMetric1">🚇 2호선</span>
+              <span class="metric" id="subwayMetric2">⏱ 3분 후</span>
             </div>
-            <div class="art one" aria-hidden="true"></div>
+            <div class="slot-meta">
+              <span class="slot-status" id="subwaySource">출처: seoul-subway-arrival · 데모</span>
+              <span id="subwayTime">조회: 2026.06.11 13:47 KST</span>
+            </div>
           </article>
 
-          <article class="recommend-card">
-            <div class="card-topline">
-              <span class="badge">Office Mood</span>
-              <span class="tag">Sweet</span>
+          <article class="slot-card" aria-label="추천 카드 2">
+            <div class="slot-topline">
+              <span class="slot-id">어제 한 경기</span>
+              <span class="chip">DEMO</span>
             </div>
-            <h3 class="drink-name">바닐라 라떼</h3>
-            <p class="drink-desc">부드럽고 달콤해서 쉬는 시간에 기분 전환용으로 잘 맞습니다.</p>
-            <div class="drink-tags">
-              <span class="tag">부드러운 단맛</span>
-              <span class="tag">휴식 타임</span>
+            <h3 class="slot-heading" id="kboTitle">KBO 결과</h3>
+            <p class="slot-body" id="kboBody">어제 경기는 SSG가 3:2로 승리했습니다. 8회 역전으로 흐름을 바꿨습니다.</p>
+            <div class="slot-infobar">
+              <span class="metric">⚾ 3:2</span>
+              <span class="metric">📌 역전승</span>
             </div>
-            <div class="art two" aria-hidden="true"></div>
+            <div class="slot-meta">
+              <span class="slot-status" id="kboSource">출처: kbo-results · 데모</span>
+              <span id="kboTime">조회: 2026.06.11 13:47 KST</span>
+            </div>
           </article>
 
-          <article class="recommend-card">
-            <div class="card-topline">
-              <span class="badge">Focus</span>
-              <span class="tag">Green Tea</span>
+          <article class="slot-card" aria-label="추천 카드 3">
+            <div class="slot-topline">
+              <span class="slot-id">오늘의 지표</span>
+              <span class="chip">DEMO</span>
             </div>
-            <h3 class="drink-name">말차 라떼</h3>
-            <p class="drink-desc">집중은 유지하면서도 달큰한 맛을 원하는 분들에게 추천된 메뉴입니다.</p>
-            <div class="drink-tags">
-              <span class="tag">은은한 쌉쌀함</span>
-              <span class="tag">집중 유지</span>
+            <h3 class="slot-heading" id="kosisTitle">1인 가구 비율</h3>
+            <p class="slot-body" id="kosisBody">2024년 전국 1인 가구 비율은 33.4%였습니다. 생활 패턴 변화가 계속 이어지고 있습니다.</p>
+            <div class="slot-infobar">
+              <span class="metric" id="kosisMetric1">📊 33.4%</span>
+              <span class="metric" id="kosisMetric2">🏷 전국</span>
             </div>
-            <div class="art three" aria-hidden="true"></div>
+            <div class="slot-meta">
+              <span class="slot-status" id="kosisSource">출처: KOSIS · 데모</span>
+              <span id="kosisTime">조회: 2026.06.11 13:47 KST</span>
+            </div>
           </article>
 
-          <article class="recommend-card">
-            <div class="card-topline">
-              <span class="badge">Cool Down</span>
-              <span class="tag">Iced</span>
+          <article class="slot-card" aria-label="추천 카드 4">
+            <div class="slot-topline">
+              <span class="slot-id">건강 한 줄</span>
+              <span class="chip">STATIC</span>
             </div>
-            <h3 class="drink-name">콜드브루</h3>
-            <p class="drink-desc">시원하고 묵직한 한 잔으로 오후 리듬을 다시 잡고 싶을 때 어울립니다.</p>
-            <div class="drink-tags">
-              <span class="tag">깊은 바디감</span>
-              <span class="tag">오후 한 잔</span>
+            <h3 class="slot-heading" id="healthTitle">오늘의 건강 팁</h3>
+            <p class="slot-body" id="healthBody">
+              💧 물 한 컵, 🧘 1분 스트레칭, 그리고 오늘 할 일은 한 번에 하나씩.
+            </p>
+            <div class="slot-infobar">
+              <span class="metric">💧 수분</span>
+              <span class="metric">🧘 스트레칭</span>
             </div>
-            <div class="art four" aria-hidden="true"></div>
+            <div class="slot-meta">
+              <span class="slot-status" id="healthSource">출처: 고정 문구 · 데모</span>
+              <span id="healthTime">조회: 2026.06.11 13:47 KST</span>
+            </div>
           </article>
         </div>
       </div>
 
       <footer class="footer">
         <span>One-page landing</span>
-        <span>Samsung Life employee picks</span>
-        <span>Ready for local preview</span>
+        <span>Today recommendation shell</span>
+        <span>Local preview ready</span>
       </footer>
     </main>
 
@@ -665,19 +840,43 @@
 
     <script>
       (() => {
-        const dateEl = document.getElementById("todayDate");
-        const announcement = document.getElementById("announcement");
-        const now = new Date();
+        const copyBtn = document.getElementById("copyLinkBtn");
+        const copyStatus = document.getElementById("copyLinkStatus");
+        const pageUrl = window.location.href;
 
-        const formatted = new Intl.DateTimeFormat("ko-KR", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          weekday: "long"
-        }).format(now);
+        const setCopyFeedback = (text, isError = false) => {
+          if (copyStatus) copyStatus.textContent = text;
+          if (copyBtn) copyBtn.textContent = isError ? "복사 실패" : "복사 완료";
+          window.setTimeout(() => {
+            if (copyBtn) copyBtn.textContent = "링크 복사";
+            if (copyStatus) copyStatus.textContent = "현재 페이지 주소";
+          }, 1800);
+        };
 
-        dateEl.textContent = formatted;
-        announcement.textContent = `오늘 날짜는 ${formatted} 입니다.`;
+        const copyCurrentLink = async () => {
+          try {
+            if (navigator.clipboard?.writeText) {
+              await navigator.clipboard.writeText(pageUrl);
+            } else {
+              const input = document.createElement("input");
+              input.value = pageUrl;
+              input.setAttribute("readonly", "");
+              input.style.position = "fixed";
+              input.style.left = "-9999px";
+              document.body.appendChild(input);
+              input.select();
+              document.execCommand("copy");
+              input.remove();
+            }
+            setCopyFeedback("링크가 복사되었습니다.");
+          } catch {
+            setCopyFeedback("복사에 실패했습니다.", true);
+          }
+        };
+
+        if (copyBtn) {
+          copyBtn.addEventListener("click", copyCurrentLink);
+        }
       })();
     </script>
   </body>
