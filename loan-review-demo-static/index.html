@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>삼성생명 여신심사 보조(정적 데모)</title>
+    <style>
+      :root {
+        --bg: #f5f7fa;
+        --paper: #ffffff;
+        --ink: #12151b;
+        --muted: #667085;
+        --line: #1f232b;
+        --soft-line: rgba(31, 35, 43, 0.14);
+        --yellow: #ffe36e;
+        --mint: #c8f7df;
+        --blue: #cfe8ff;
+        --pink: #ffd6ef;
+        --red: #d92d20;
+        --red-soft: #fff1f0;
+        --shadow: 6px 6px 0 rgba(31, 35, 43, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        font-family: Pretendard, "SUIT", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+        background:
+          linear-gradient(rgba(18, 21, 27, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(18, 21, 27, 0.03) 1px, transparent 1px),
+          radial-gradient(circle at 5% 8%, rgba(255, 227, 110, 0.44), transparent 18rem),
+          radial-gradient(circle at 92% 10%, rgba(255, 214, 239, 0.5), transparent 18rem),
+          radial-gradient(circle at 10% 92%, rgba(200, 247, 223, 0.54), transparent 20rem),
+          var(--bg);
+        background-size: 64px 64px, 64px 64px, auto, auto, auto, auto;
+      }
+
+      .page {
+        width: min(100%, 1240px);
+        margin: 0 auto;
+        padding: 18px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .mark {
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--line);
+        background: var(--yellow);
+      }
+
+      .hero {
+        border: 3px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        margin-bottom: 14px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(40px, 7vw, 82px);
+        line-height: 0.96;
+        letter-spacing: 0;
+        font-weight: 950;
+      }
+
+      .subtitle {
+        margin: 12px 0 0;
+        color: var(--muted);
+        line-height: 1.55;
+        font-weight: 700;
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 14px;
+      }
+
+      .badge,
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 9px;
+        border: 2px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .badge[data-tone="ok"] {
+        background: var(--mint);
+      }
+
+      .badge[data-tone="warn"] {
+        background: var(--yellow);
+      }
+
+      .badge[data-tone="risk"] {
+        background: var(--red-soft);
+        color: var(--red);
+      }
+
+      .summary {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .summary-box {
+        border: 2px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 12px;
+      }
+
+      .label {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .value {
+        margin: 5px 0 0;
+        font-size: 22px;
+        line-height: 1.1;
+        font-weight: 950;
+      }
+
+      .note {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 700;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+        gap: 14px;
+      }
+
+      .panel {
+        border: 3px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: var(--shadow);
+        padding: 14px;
+      }
+
+      .panel + .panel {
+        margin-top: 14px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.08;
+        letter-spacing: 0;
+        font-weight: 950;
+      }
+
+      .section-copy {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 700;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border: 2px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 10px 11px;
+        border-bottom: 1px solid rgba(31, 35, 43, 0.1);
+        text-align: left;
+        vertical-align: top;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      th {
+        background: rgba(255, 227, 110, 0.22);
+        font-size: 12px;
+        font-weight: 950;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .strong {
+        font-weight: 950;
+      }
+
+      .dummy {
+        color: #8a3c00;
+        font-weight: 950;
+      }
+
+      .unknown {
+        color: var(--red);
+        font-weight: 950;
+      }
+
+      .alert {
+        border: 2px solid var(--red);
+        border-radius: 8px;
+        background: var(--red-soft);
+        color: var(--red);
+        padding: 12px;
+        margin-bottom: 12px;
+        font-weight: 900;
+        line-height: 1.45;
+      }
+
+      .status-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .status-item {
+        display: grid;
+        grid-template-columns: 92px 1fr auto;
+        gap: 8px;
+        align-items: center;
+        border: 2px solid var(--soft-line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 9px;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .grid,
+        .summary {
+          grid-template-columns: 1fr;
+        }
+
+        .status-item {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="topbar">
+        <span class="brand"><span class="mark"></span> SAMSUNG LIFE / STATIC DEMO</span>
+        <span>NO API CALLS / NO KEYS DEPLOYED</span>
+      </div>
+
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <h1>여신심사 보조 평가 스냅샷</h1>
+            <p class="subtitle">
+              삼성생명 공개 상장사 입력 기준으로 수집 시도한 공시, 재무, 주가, 3개년 추세, 동종사 비교,
+              직접 계산 비율을 한 화면에 정리한 정적 배포본입니다.
+            </p>
+            <div class="badge-row">
+              <span class="badge" data-tone="ok">정적 페이지</span>
+              <span class="badge" data-tone="warn">(더미) 명시</span>
+              <span class="badge" data-tone="risk">키 호출 없음</span>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-box">
+              <p class="label">평가 대상</p>
+              <p class="value">삼성생명</p>
+              <p class="note">공개 상장사 데모 입력값</p>
+            </div>
+            <div class="summary-box">
+              <p class="label">동종 비교사</p>
+              <p class="value">한화생명</p>
+              <p class="note">(더미) 업종 매칭 예시</p>
+            </div>
+            <div class="summary-box">
+              <p class="label">데이터 상태</p>
+              <p class="value">부분 미확보</p>
+              <p class="note">원천값 없는 항목은 확인 불가</p>
+            </div>
+            <div class="summary-box">
+              <p class="label">배포 안전성</p>
+              <p class="value">키 없음</p>
+              <p class="note">API 호출 스크립트 미포함</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid">
+        <div>
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>데이터 수집 현황</h2>
+                <p class="section-copy">확인된 값과 더미 항목을 분리 표시합니다.</p>
+              </div>
+              <span class="pill">Snapshot</span>
+            </div>
+            <div class="status-list">
+              <div class="status-item">
+                <span class="strong">공시</span>
+                <span>웹검색 결과 없음, OpenDART 키 미확보</span>
+                <span class="unknown">확인 불가</span>
+              </div>
+              <div class="status-item">
+                <span class="strong">재무</span>
+                <span>연결/별도 표 구조 생성, 원천 수치 미확보</span>
+                <span class="unknown">확인 불가</span>
+              </div>
+              <div class="status-item">
+                <span class="strong">주가</span>
+                <span>KRX API는 업무범위 제외, 주가 데이터 미수집</span>
+                <span class="dummy">(더미)</span>
+              </div>
+              <div class="status-item">
+                <span class="strong">3개년</span>
+                <span>2023~2025 연도 자리 생성, 실제 매출/부채비율 미확보</span>
+                <span class="dummy">(더미)</span>
+              </div>
+              <div class="status-item">
+                <span class="strong">비교</span>
+                <span>한화생명 비교 행 생성, 실제 부채비율/영업이익률 미확보</span>
+                <span class="dummy">(더미)</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>재무 요약</h2>
+                <p class="section-copy">단위는 백만원입니다. 원천 수치 미확보 항목은 `-`로 표시합니다.</p>
+              </div>
+              <span class="pill">(더미 포함)</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>구분</th>
+                    <th>기준연도</th>
+                    <th>매출</th>
+                    <th>영업이익</th>
+                    <th>부채총계</th>
+                    <th>자본총계</th>
+                    <th>이자비용</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>연결</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="unknown">확인 불가</td>
+                  </tr>
+                  <tr>
+                    <td>별도</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="unknown">확인 불가</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>직접 계산 비율</h2>
+                <p class="section-copy">계산식은 고정하되, 원천 수치가 없으면 결과를 주장하지 않습니다.</p>
+              </div>
+              <span class="pill">Formula</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>지표</th>
+                    <th>계산식</th>
+                    <th>직접 계산값</th>
+                    <th>판정</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>부채비율</td>
+                    <td>부채총계 / 자본총계 * 100</td>
+                    <td>-</td>
+                    <td class="unknown">확인 불가</td>
+                  </tr>
+                  <tr>
+                    <td>이자보상배율</td>
+                    <td>영업이익 / 이자비용</td>
+                    <td>-</td>
+                    <td class="unknown">확인 불가</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>최근 3개년 추세</h2>
+                <p class="section-copy">부채비율 방향은 직접 계산값 기준입니다. 현재는 원천 수치가 없어 방향도 확인 불가입니다.</p>
+              </div>
+              <span class="pill">(더미)</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>연도</th>
+                    <th>매출</th>
+                    <th>부채총계</th>
+                    <th>자본총계</th>
+                    <th>부채비율</th>
+                    <th>방향</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2023</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="dummy">(더미)</td>
+                  </tr>
+                  <tr>
+                    <td>2024</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="dummy">(더미)</td>
+                  </tr>
+                  <tr>
+                    <td>2025</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="dummy">(더미)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <aside>
+          <section class="panel">
+            <div class="alert">
+              검증 경고: LLM이 평가에 사용한 부채비율과 이자보상배율의 근거 수치를 확인하지 못했습니다.
+              근거 없는 평가는 `확인 불가`로 처리합니다.
+            </div>
+            <div class="section-head">
+              <div>
+                <h2>LLM 평가값 대조</h2>
+                <p class="section-copy">직접 계산값과 LLM 사용값을 대조합니다.</p>
+              </div>
+              <span class="pill">Control</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>지표</th>
+                    <th>직접 계산</th>
+                    <th>LLM 사용값</th>
+                    <th>대조 결과</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>부채비율</td>
+                    <td>-</td>
+                    <td class="unknown">확인 불가</td>
+                    <td class="unknown">검증 불가</td>
+                  </tr>
+                  <tr>
+                    <td>이자보상배율</td>
+                    <td>-</td>
+                    <td class="unknown">확인 불가</td>
+                    <td class="unknown">검증 불가</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>동종 상장사 비교</h2>
+                <p class="section-copy">같은 업종 비교대상 1곳을 표시하되, 원천 수치가 없으면 더미로 명시합니다.</p>
+              </div>
+              <span class="pill">(더미)</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>회사</th>
+                    <th>부채비율</th>
+                    <th>영업이익률</th>
+                    <th>검증</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>삼성생명</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="unknown">원천 수치 미확보</td>
+                  </tr>
+                  <tr>
+                    <td>한화생명</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td class="dummy">(더미)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="section-head">
+              <div>
+                <h2>공시·주가 스냅샷</h2>
+                <p class="section-copy">배포본에서는 데이터 호출을 하지 않습니다.</p>
+              </div>
+              <span class="pill">Static</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>구분</th>
+                    <th>내용</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>최근 공시</td>
+                    <td>웹검색 결과 없음</td>
+                    <td class="unknown">확인 불가</td>
+                  </tr>
+                  <tr>
+                    <td>주가</td>
+                    <td>KRX API 제외, 정적 배포본 미연동</td>
+                    <td class="dummy">(더미)</td>
+                  </tr>
+                  <tr>
+                    <td>데이터 호출</td>
+                    <td>fetch, API key, 서버 호출 없음</td>
+                    <td class="strong">배포 안전</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <footer class="footer">
+        <span>STATIC CREDIT-REVIEW SNAPSHOT</span>
+        <span>NO SECRET VALUES</span>
+        <span>PUBLIC LISTED COMPANY DEMO</span>
+      </footer>
+    </main>
+  </body>
+</html>

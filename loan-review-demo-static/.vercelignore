@@ -1,0 +1,8 @@
+.env
+.env.*
+*.log
+*.trace.log
+server.py
+server.*
+__pycache__/
+static-preview.png
