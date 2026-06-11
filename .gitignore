@@ -1,0 +1,29 @@
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Common secret / credential files
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.crt
+*.cer
+*.der
+*.p7b
+*.p7c
+*.token
+*.secret
+*.credentials
+
+# Secret / private folders
+secrets/
+secret/
+keys/
+credentials/
+private/
+personal/
+pii/
