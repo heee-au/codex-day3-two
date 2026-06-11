@@ -1,27 +1,26 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="dark" />
-    <title>Dark Neon Typing Demo</title>
+    <meta name="color-scheme" content="light" />
+    <title>오늘의 추천</title>
     <style>
       :root {
-        --bg-0: #050816;
-        --bg-1: #080d1b;
-        --bg-2: #0c1125;
-        --surface: rgba(11, 15, 30, 0.72);
-        --surface-strong: rgba(13, 18, 37, 0.88);
-        --line: rgba(255, 255, 255, 0.09);
-        --text: rgba(250, 253, 255, 0.96);
-        --muted: rgba(214, 224, 255, 0.66);
-        --muted-strong: rgba(226, 233, 255, 0.8);
-        --accent-cyan: #4de0ff;
-        --accent-violet: #8a79ff;
-        --accent-pink: #ff7ec8;
-        --glow: rgba(77, 224, 255, 0.28);
-        --pointer-x: 0;
-        --pointer-y: 0;
+        --bg: #f5f7fb;
+        --bg-strong: #edf2ff;
+        --surface: rgba(255, 255, 255, 0.82);
+        --surface-strong: rgba(255, 255, 255, 0.96);
+        --line: rgba(42, 61, 116, 0.12);
+        --line-strong: rgba(42, 61, 116, 0.18);
+        --text: #10182f;
+        --muted: rgba(16, 24, 47, 0.64);
+        --muted-strong: rgba(16, 24, 47, 0.8);
+        --accent: #3e63f3;
+        --accent-soft: rgba(62, 99, 243, 0.12);
+        --accent-2: #21b6a8;
+        --shadow: 0 20px 50px rgba(30, 45, 90, 0.08);
+        --shadow-strong: 0 28px 70px rgba(30, 45, 90, 0.12);
       }
 
       * {
@@ -29,21 +28,21 @@
       }
 
       html {
-        color-scheme: dark;
         scroll-behavior: smooth;
+        color-scheme: light;
       }
 
       body {
         margin: 0;
         min-height: 100vh;
-        overflow-x: hidden;
-        font-family: Inter, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background:
-          radial-gradient(circle at 15% 20%, rgba(77, 224, 255, 0.28), transparent 24%),
-          radial-gradient(circle at 80% 18%, rgba(138, 121, 255, 0.26), transparent 22%),
-          radial-gradient(circle at 50% 82%, rgba(255, 126, 200, 0.18), transparent 28%),
-          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 48%, #04050b 100%);
+        font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         color: var(--text);
+        background:
+          radial-gradient(circle at 12% 12%, rgba(62, 99, 243, 0.14), transparent 22%),
+          radial-gradient(circle at 82% 18%, rgba(33, 182, 168, 0.12), transparent 22%),
+          radial-gradient(circle at 58% 100%, rgba(62, 99, 243, 0.08), transparent 26%),
+          linear-gradient(180deg, #f8faff 0%, var(--bg) 42%, #f2f6fd 100%);
+        overflow-x: hidden;
       }
 
       body::before {
@@ -51,12 +50,12 @@
         position: fixed;
         inset: 0;
         pointer-events: none;
-        background:
-          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 68px 68px;
-        mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
-        opacity: 0.25;
+        background-image:
+          linear-gradient(rgba(16, 24, 47, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(16, 24, 47, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(circle at center, black 44%, transparent 100%);
+        opacity: 0.55;
         z-index: 0;
       }
 
@@ -66,385 +65,218 @@
         inset: 0;
         pointer-events: none;
         background:
-          radial-gradient(circle at center, transparent 50%, rgba(4, 5, 11, 0.34) 100%),
-          linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 14%, transparent 86%, rgba(255, 255, 255, 0.02));
-        mix-blend-mode: screen;
+          radial-gradient(circle at center, transparent 48%, rgba(244, 247, 252, 0.16) 100%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 16%, transparent 84%, rgba(255, 255, 255, 0.16));
         z-index: 0;
       }
 
-      .shell {
+      .page {
         position: relative;
-        isolation: isolate;
+        z-index: 1;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 1.25rem;
+        gap: 2rem;
         padding: clamp(1rem, 2vw, 2rem);
       }
 
-      .orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(42px);
-        opacity: 0.72;
-        pointer-events: none;
-        mix-blend-mode: screen;
-        z-index: 0;
-      }
-
-      .orb.a {
-        width: min(42vw, 34rem);
-        aspect-ratio: 1;
-        top: -10rem;
-        left: -8rem;
-        background: radial-gradient(circle, rgba(77, 224, 255, 0.88) 0%, rgba(77, 224, 255, 0) 68%);
-        animation: drift-a 18s ease-in-out infinite alternate;
-      }
-
-      .orb.b {
-        width: min(34vw, 28rem);
-        aspect-ratio: 1;
-        top: 8%;
-        right: -8rem;
-        background: radial-gradient(circle, rgba(138, 121, 255, 0.9) 0%, rgba(138, 121, 255, 0) 70%);
-        animation: drift-b 21s ease-in-out infinite alternate;
-      }
-
-      .orb.c {
-        width: min(30vw, 24rem);
-        aspect-ratio: 1;
-        bottom: -8rem;
-        left: 36%;
-        background: radial-gradient(circle, rgba(255, 126, 200, 0.82) 0%, rgba(255, 126, 200, 0) 72%);
-        animation: drift-c 19s ease-in-out infinite alternate;
-      }
-
-      @keyframes drift-a {
-        from {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        to {
-          transform: translate3d(1.6rem, 2.4rem, 0) scale(1.06);
-        }
-      }
-
-      @keyframes drift-b {
-        from {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        to {
-          transform: translate3d(-1.8rem, 1.2rem, 0) scale(1.1);
-        }
-      }
-
-      @keyframes drift-c {
-        from {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        to {
-          transform: translate3d(1.2rem, -1.4rem, 0) scale(1.08);
-        }
-      }
-
-      .topbar,
-      .stage,
-      .footer {
-        position: relative;
-        z-index: 1;
-      }
-
-      .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 1.5rem;
+      .page-inner {
         width: min(100%, 1200px);
         margin: 0 auto;
       }
 
-      .eyebrow {
-        margin: 0 0 0.55rem;
-        font-size: 0.72rem;
-        font-weight: 700;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        color: rgba(226, 233, 255, 0.58);
-      }
-
-      .title {
-        margin: 0;
-        font-size: clamp(1.3rem, 2vw, 1.9rem);
-        line-height: 1.05;
-        letter-spacing: -0.05em;
-        color: var(--text);
-      }
-
-      .lede {
-        margin: 0;
-        max-width: 28rem;
-        color: var(--muted);
-        line-height: 1.55;
-        font-size: 0.98rem;
-        text-align: right;
-      }
-
-      .stage {
-        flex: 1;
-        display: grid;
-        place-items: center;
-        width: 100%;
-      }
-
-      .demo-card {
+      .hero {
         position: relative;
-        width: min(100%, 1140px);
-        padding: clamp(1.4rem, 3.4vw, 3rem);
-        border-radius: 32px;
-        border: 1px solid var(--line);
-        background:
-          linear-gradient(180deg, rgba(14, 18, 36, 0.86), rgba(9, 12, 24, 0.72)),
-          radial-gradient(circle at 50% 0%, rgba(77, 224, 255, 0.08), transparent 45%);
-        box-shadow:
-          0 28px 80px rgba(0, 0, 0, 0.48),
-          0 0 0 1px rgba(77, 224, 255, 0.12),
-          0 0 52px rgba(77, 224, 255, 0.12),
-          0 0 84px rgba(138, 121, 255, 0.08),
-          inset 0 1px 0 rgba(255, 255, 255, 0.07);
-        animation: cardGlow 5.8s ease-in-out infinite alternate;
-        backdrop-filter: blur(28px);
         overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 32px;
+        padding: clamp(1.25rem, 3.2vw, 3rem);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(247, 250, 255, 0.76)),
+          radial-gradient(circle at 15% 0%, rgba(62, 99, 243, 0.1), transparent 36%),
+          radial-gradient(circle at 100% 0%, rgba(33, 182, 168, 0.08), transparent 30%);
+        box-shadow: var(--shadow-strong);
       }
 
-      .demo-card::before {
+      .hero::before {
         content: "";
         position: absolute;
-        inset: 1px;
-        border-radius: inherit;
-        background: linear-gradient(135deg, rgba(77, 224, 255, 0.14), transparent 28%, transparent 72%, rgba(255, 126, 200, 0.18));
+        inset: 0;
+        background:
+          linear-gradient(135deg, rgba(62, 99, 243, 0.08), transparent 24%, transparent 76%, rgba(33, 182, 168, 0.06)),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 18%);
         pointer-events: none;
       }
 
-      .status-row {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.7rem;
-        margin-bottom: 2rem;
+      .hero-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.95fr);
+        gap: clamp(1.5rem, 3vw, 3rem);
+        align-items: end;
       }
 
-      .chip {
+      .eyebrow {
+        margin: 0 0 0.8rem;
         display: inline-flex;
         align-items: center;
-        gap: 0.55rem;
-        padding: 0.68rem 0.92rem;
+        gap: 0.5rem;
+        padding: 0.5rem 0.8rem;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.11);
-        background: rgba(255, 255, 255, 0.05);
-        color: rgba(239, 244, 255, 0.8);
-        font-size: 0.77rem;
-        font-weight: 600;
-        letter-spacing: 0.08em;
+        border: 1px solid rgba(62, 99, 243, 0.14);
+        background: rgba(62, 99, 243, 0.08);
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
-        white-space: nowrap;
-        backdrop-filter: blur(16px);
-        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
       }
 
-      .chip::before {
+      .eyebrow::before {
         content: "";
-        width: 0.44rem;
-        height: 0.44rem;
+        width: 0.5rem;
+        height: 0.5rem;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.72);
-        box-shadow: 0 0 0 0.22rem rgba(255, 255, 255, 0.12), 0 0 18px rgba(255, 255, 255, 0.05);
+        background: var(--accent);
+        box-shadow: 0 0 0 0.22rem rgba(62, 99, 243, 0.12);
       }
 
-      body[data-mode="typing"] .chip.mode {
-        border-color: rgba(77, 224, 255, 0.32);
-        background: rgba(77, 224, 255, 0.28);
-        box-shadow: 0 0 24px rgba(77, 224, 255, 0.14);
-        color: #dbfbff;
-      }
-
-      body[data-mode="typing"] .chip.mode::before {
-        background: var(--accent-cyan);
-        box-shadow: 0 0 0 0.22rem rgba(77, 224, 255, 0.22), 0 0 18px rgba(77, 224, 255, 0.12);
-      }
-
-      body[data-mode="pause"] .chip.mode {
-        border-color: rgba(138, 121, 255, 0.34);
-        background: rgba(138, 121, 255, 0.26);
-        box-shadow: 0 0 24px rgba(138, 121, 255, 0.12);
-        color: #ece8ff;
-      }
-
-      body[data-mode="pause"] .chip.mode::before {
-        background: var(--accent-violet);
-        box-shadow: 0 0 0 0.22rem rgba(138, 121, 255, 0.22), 0 0 18px rgba(138, 121, 255, 0.12);
-      }
-
-      body[data-mode="deleting"] .chip.mode {
-        border-color: rgba(255, 126, 200, 0.3);
-        background: rgba(255, 126, 200, 0.18);
-        box-shadow: 0 0 24px rgba(255, 126, 200, 0.18);
-        color: #ffe5f3;
-      }
-
-      body[data-mode="deleting"] .chip.mode::before {
-        background: var(--accent-pink);
-        box-shadow: 0 0 0 0.22rem rgba(255, 126, 200, 0.22), 0 0 18px rgba(255, 126, 200, 0.18);
-      }
-
-      body[data-mode="stable"] .chip.mode {
-        border-color: rgba(255, 255, 255, 0.14);
-        background: rgba(255, 255, 255, 0.08);
-        box-shadow: 0 0 24px rgba(255, 255, 255, 0.05);
-        color: var(--muted-strong);
-      }
-
-      body[data-mode="stable"] .chip.mode::before {
-        background: rgba(255, 255, 255, 0.76);
-        box-shadow: 0 0 0 0.22rem rgba(255, 255, 255, 0.12);
-      }
-
-      .typing-area {
-        display: grid;
-        place-items: center;
-        gap: 1.2rem;
-        text-align: center;
-        min-height: min(48vh, 34rem);
-      }
-
-      .typing-line {
+      .hero-title {
         margin: 0;
-        max-width: 13ch;
-        font-size: clamp(2.8rem, 6.8vw, 7.2rem);
-        line-height: 0.92;
+        font-size: clamp(3rem, 7vw, 6.6rem);
+        line-height: 0.96;
         letter-spacing: -0.09em;
-        font-weight: 750;
         text-wrap: balance;
-        text-shadow: 0 0 26px rgba(77, 224, 255, 0.28), 0 0 72px rgba(138, 121, 255, 0.12);
       }
 
-      .typed {
-        background: linear-gradient(90deg, #f9fbff 0%, #d7fbff 26%, #98d8ff 52%, #d9c9ff 74%, #fff2fb 100%);
+      .hero-title strong {
+        display: inline-block;
+        background: linear-gradient(90deg, #10182f 0%, #203574 46%, #3e63f3 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        filter: drop-shadow(0 0 18px rgba(77, 224, 255, 0.28)) drop-shadow(0 0 42px rgba(138, 121, 255, 0.14));
       }
 
-      .caret {
-        display: inline-block;
-        width: 0.16em;
-        height: 0.92em;
-        margin-left: 0.1em;
-        border-radius: 0.12em;
-        background: linear-gradient(180deg, var(--accent-cyan), var(--accent-violet));
-        vertical-align: -0.08em;
-        box-shadow: 0 0 18px rgba(77, 224, 255, 0.55), 0 0 44px rgba(138, 121, 255, 0.26);
-        animation: blink 0.9s steps(1) infinite, caretPulse 3.2s ease-in-out infinite alternate;
+      .hero-copy {
+        margin: 1rem 0 0;
+        max-width: 34rem;
+        color: var(--muted-strong);
+        font-size: clamp(1rem, 1.45vw, 1.12rem);
+        line-height: 1.75;
       }
 
-      @keyframes blink {
-        0%,
-        49% {
-          opacity: 1;
-        }
-        50%,
-        100% {
-          opacity: 0;
-        }
+      .hero-aside {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.9rem;
+        padding: 1.25rem;
+        border-radius: 24px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.64);
+        box-shadow: var(--shadow);
       }
 
-      @keyframes cardGlow {
-        from {
-          box-shadow:
-            0 28px 80px rgba(0, 0, 0, 0.48),
-            0 0 0 1px rgba(77, 224, 255, 0.12),
-            0 0 52px rgba(77, 224, 255, 0.12),
-            0 0 84px rgba(138, 121, 255, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.07);
-        }
-        to {
-          box-shadow:
-            0 28px 80px rgba(0, 0, 0, 0.48),
-            0 0 0 1px rgba(77, 224, 255, 0.2),
-            0 0 76px rgba(77, 224, 255, 0.18),
-            0 0 116px rgba(138, 121, 255, 0.12),
-            inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        }
-      }
-
-      @keyframes caretPulse {
-        from {
-          filter: brightness(1) saturate(1);
-          transform: translateY(0);
-        }
-        to {
-          filter: brightness(1.35) saturate(1.25);
-          transform: translateY(-0.02em);
-        }
-      }
-
-      .support {
+      .date-label {
         margin: 0;
-        max-width: 38rem;
         color: var(--muted);
-        font-size: 0.98rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .date-value {
+        margin: 0;
+        font-size: clamp(1.2rem, 2vw, 1.7rem);
+        line-height: 1.2;
+        letter-spacing: -0.05em;
+      }
+
+      .date-note {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+        font-size: 0.95rem;
+      }
+
+      .section {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        width: 100%;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(1.2rem, 2vw, 1.5rem);
+        letter-spacing: -0.05em;
+      }
+
+      .section-subtitle {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
         line-height: 1.6;
       }
 
-      .actions {
-        display: flex;
-        justify-content: center;
+      .recommend-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
       }
 
-      .replay {
-        appearance: none;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: linear-gradient(135deg, rgba(77, 224, 255, 0.15), rgba(138, 121, 255, 0.22));
-        color: #ffffff;
-        border-radius: 999px;
-        padding: 0.92rem 1.25rem;
-        font: inherit;
-        font-size: 0.92rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        cursor: pointer;
-        box-shadow:
-          0 18px 42px rgba(0, 0, 0, 0.32),
-          inset 0 1px 0 rgba(255, 255, 255, 0.12);
-        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease;
+      .recommend-slot {
+        min-height: 220px;
+        border-radius: 24px;
+        border: 1.5px solid rgba(42, 61, 116, 0.12);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(244, 248, 255, 0.7)),
+          linear-gradient(135deg, rgba(62, 99, 243, 0.04), transparent 38%, transparent 62%, rgba(33, 182, 168, 0.04));
+        box-shadow: 0 18px 34px rgba(30, 45, 90, 0.06);
+        position: relative;
+        overflow: hidden;
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
       }
 
-      .replay:hover {
-        transform: translateY(-1px);
-        border-color: rgba(255, 255, 255, 0.18);
-        box-shadow:
-          0 22px 56px rgba(0, 0, 0, 0.38),
-          0 0 30px rgba(77, 224, 255, 0.14),
-          inset 0 1px 0 rgba(255, 255, 255, 0.14);
-        filter: brightness(1.05);
+      .recommend-slot::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.55), transparent 30%),
+          radial-gradient(circle at top left, rgba(62, 99, 243, 0.08), transparent 32%);
+        pointer-events: none;
       }
 
-      .replay:focus-visible {
-        outline: 2px solid rgba(77, 224, 255, 0.5);
+      .recommend-slot:hover {
+        transform: translateY(-2px);
+        border-color: rgba(62, 99, 243, 0.24);
+        box-shadow: 0 24px 48px rgba(30, 45, 90, 0.09);
+      }
+
+      .recommend-slot:focus-visible {
+        outline: 3px solid rgba(62, 99, 243, 0.35);
         outline-offset: 4px;
       }
 
       .footer {
         width: min(100%, 1200px);
-        margin: 0 auto;
+        margin: auto auto 0;
+        padding: 0 0.25rem 0.25rem;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: 0.75rem 1.25rem;
-        color: rgba(214, 224, 255, 0.72);
-        text-shadow: 0 0 18px rgba(77, 224, 255, 0.08);
-        font-size: 0.76rem;
-        letter-spacing: 0.12em;
+        gap: 0.75rem 1rem;
+        color: rgba(16, 24, 47, 0.58);
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
       }
 
@@ -461,52 +293,45 @@
       }
 
       @media (max-width: 900px) {
-        .topbar {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-aside {
+          align-items: flex-start;
+        }
+
+        .section-head {
+          align-items: flex-start;
           flex-direction: column;
-        }
-
-        .lede {
-          text-align: left;
-          max-width: 34rem;
-        }
-
-        .typing-area {
-          min-height: min(42vh, 30rem);
         }
       }
 
-      @media (max-width: 680px) {
-        .shell {
+      @media (max-width: 700px) {
+        .page {
           padding: 0.85rem;
+          gap: 1rem;
         }
 
-        .demo-card {
+        .hero {
           border-radius: 26px;
-          padding: 1.15rem;
+          padding: 1.1rem;
         }
 
-        .status-row {
-          gap: 0.55rem;
-          margin-bottom: 1.5rem;
+        .hero-title {
+          font-size: clamp(2.5rem, 12vw, 4.2rem);
         }
 
-        .chip {
-          padding: 0.58rem 0.78rem;
-          font-size: 0.7rem;
+        .recommend-grid {
+          grid-template-columns: 1fr;
         }
 
-        .typing-line {
-          max-width: 12ch;
-          font-size: clamp(2.35rem, 12vw, 4.75rem);
-          line-height: 0.94;
-        }
-
-        .support {
-          font-size: 0.92rem;
+        .recommend-slot {
+          min-height: 160px;
         }
 
         .footer {
-          font-size: 0.7rem;
+          font-size: 0.72rem;
         }
       }
 
@@ -515,232 +340,83 @@
           scroll-behavior: auto;
         }
 
-        .orb,
-        .caret,
-        .replay,
-        .chip {
-          animation: none !important;
-          transition: none !important;
+        .recommend-slot {
+          transition: none;
+        }
+
+        .recommend-slot:hover {
+          transform: none;
         }
       }
     </style>
   </head>
-  <body data-mode="typing">
-    <div class="shell">
-      <span class="orb a" aria-hidden="true"></span>
-      <span class="orb b" aria-hidden="true"></span>
-      <span class="orb c" aria-hidden="true"></span>
-
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Framer-style typing demo</p>
-          <p class="title">Dark neon typewriter stage</p>
-        </div>
-        <p class="lede">A single line types itself in the middle of a quiet, glowing stage so the motion feels like the whole interface.</p>
-      </header>
-
-      <main class="stage">
-        <section class="demo-card" aria-label="Animated typing demonstration">
-          <div class="status-row" aria-hidden="true">
-            <span class="chip mode" id="modeChip">typing</span>
-            <span class="chip" id="tempoChip">type 56ms / delete 34ms</span>
-            <span class="chip" id="progressChip">phrase 1 / 3</span>
-          </div>
-
-          <div class="typing-area">
-            <h1 class="typing-line" aria-label="Animated phrase">
-              <span class="typed" id="typedText"></span><span class="caret" aria-hidden="true"></span>
-            </h1>
-            <p class="support">Watch the line reveal, pause, erase, and restart. The background stays low-key so the typing can own the scene.</p>
-            <div class="actions">
-              <button class="replay" id="replayBtn" type="button">Replay sequence</button>
+  <body>
+    <main class="page">
+      <div class="page-inner">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-grid">
+            <div>
+              <p class="eyebrow">오늘의 큐레이션</p>
+              <h1 class="hero-title" id="hero-title"><strong>오늘의 추천</strong></h1>
+              <p class="hero-copy">
+                오늘 가장 먼저 볼 만한 것들을 한 장에 모아둔 랜딩페이지입니다.
+                빠르게 훑어도 흐름이 보이도록 상단에는 핵심만, 하단에는 추천 카드 자리를
+                깔끔하게 배치했습니다.
+              </p>
             </div>
+
+            <aside class="hero-aside" aria-label="오늘 날짜 정보">
+              <p class="date-label">오늘 날짜</p>
+              <p class="date-value" id="todayDate">2026년 6월 11일 목요일</p>
+              <p class="date-note">
+                매일 새롭게 갱신되는 추천을 담을 수 있도록
+                상단을 단정하게 비워두었습니다.
+              </p>
+            </aside>
           </div>
         </section>
-      </main>
+      </div>
+
+      <div class="page-inner section" aria-labelledby="recommend-section-title">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title" id="recommend-section-title">추천 카드 자리</h2>
+            <p class="section-subtitle">아래 4개 슬롯은 아직 비워두었습니다. 나중에 추천 콘텐츠를 채우면 됩니다.</p>
+          </div>
+        </div>
+
+        <div class="recommend-grid" aria-label="추천 카드 4개 슬롯">
+          <article class="recommend-slot" aria-label="추천 카드 1, 비어 있음"></article>
+          <article class="recommend-slot" aria-label="추천 카드 2, 비어 있음"></article>
+          <article class="recommend-slot" aria-label="추천 카드 3, 비어 있음"></article>
+          <article class="recommend-slot" aria-label="추천 카드 4, 비어 있음"></article>
+        </div>
+      </div>
 
       <footer class="footer">
-        <span>Auto looping</span>
-        <span>Keyboard friendly</span>
-        <span>Reduced-motion aware</span>
+        <span>One-page landing</span>
+        <span>Hero + 4 slots</span>
+        <span>Local preview ready</span>
       </footer>
+    </main>
 
-      <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
-    </div>
+    <p class="sr-only" aria-live="polite" id="announcement"></p>
 
     <script>
       (() => {
-        const phrases = [
-          "Crafting smooth interactions",
-          "Designing motion with clarity",
-          "Building calm, living interfaces"
-        ];
-
-        const timings = {
-          type: 56,
-          delete: 34,
-          pause: 1200
-        };
-
-        const typedText = document.getElementById("typedText");
-        const modeChip = document.getElementById("modeChip");
-        const tempoChip = document.getElementById("tempoChip");
-        const progressChip = document.getElementById("progressChip");
-        const replayBtn = document.getElementById("replayBtn");
+        const dateEl = document.getElementById("todayDate");
         const announcement = document.getElementById("announcement");
-        const body = document.body;
-        const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const now = new Date();
+        const formatted = new Intl.DateTimeFormat("ko-KR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          weekday: "long"
+        }).format(now);
 
-        const state = {
-          mode: reducedMotionQuery.matches ? "stable" : "typing",
-          phraseIndex: 0,
-          charIndex: 0,
-          loopCount: 0,
-          timerId: null,
-          reducedMotion: reducedMotionQuery.matches
-        };
-
-        function clearTimer() {
-          if (state.timerId !== null) {
-            window.clearTimeout(state.timerId);
-            state.timerId = null;
-          }
-        }
-
-        function schedule(delay) {
-          clearTimer();
-          state.timerId = window.setTimeout(step, delay);
-        }
-
-        function currentPhrase() {
-          return phrases[state.phraseIndex];
-        }
-
-        function updateView() {
-          const phrase = currentPhrase();
-          typedText.textContent = phrase.slice(0, state.charIndex);
-          body.dataset.mode = state.mode;
-          modeChip.textContent = state.mode;
-          tempoChip.textContent = state.reducedMotion
-            ? "motion off"
-            : `type ${timings.type}ms / delete ${timings.delete}ms`;
-          progressChip.textContent = state.reducedMotion
-            ? `phrase 1 / ${phrases.length}`
-            : `phrase ${state.phraseIndex + 1} / ${phrases.length}`;
-          typedText.parentElement.setAttribute("aria-label", `Animated phrase: ${phrase}`);
-        }
-
-        function finishStaticState() {
-          clearTimer();
-          state.mode = "stable";
-          state.phraseIndex = 0;
-          state.charIndex = phrases[0].length;
-          updateView();
-          announcement.textContent = `Reduced motion mode enabled. Showing ${phrases[0]}.`;
-        }
-
-        function startSequence() {
-          clearTimer();
-          state.mode = "typing";
-          state.phraseIndex = 0;
-          state.charIndex = 0;
-          state.loopCount = 0;
-          updateView();
-          announcement.textContent = `Typing ${currentPhrase()}.`;
-          schedule(timings.type);
-        }
-
-        function resetSequence() {
-          if (state.reducedMotion) {
-            finishStaticState();
-            announcement.textContent = `Sequence reset. ${phrases[0]} remains visible in reduced motion mode.`;
-            return;
-          }
-
-          startSequence();
-          announcement.textContent = `Sequence restarted. ${currentPhrase()} is typing again.`;
-        }
-
-        function step() {
-          const phrase = currentPhrase();
-
-          if (state.mode === "typing") {
-            state.charIndex += 1;
-            updateView();
-
-            if (state.charIndex >= phrase.length) {
-              state.charIndex = phrase.length;
-              state.mode = "pause";
-              updateView();
-              announcement.textContent = `Paused on ${phrase}.`;
-              schedule(timings.pause);
-              return;
-            }
-
-            schedule(timings.type);
-            return;
-          }
-
-          if (state.mode === "pause") {
-            state.mode = "deleting";
-            updateView();
-            announcement.textContent = `Deleting ${phrase}.`;
-            schedule(timings.delete);
-            return;
-          }
-
-          if (state.mode === "deleting") {
-            state.charIndex -= 1;
-            if (state.charIndex < 0) {
-              state.charIndex = 0;
-            }
-            updateView();
-
-            if (state.charIndex === 0) {
-              state.phraseIndex = (state.phraseIndex + 1) % phrases.length;
-              if (state.phraseIndex === 0) {
-                state.loopCount += 1;
-              }
-              state.mode = "typing";
-              updateView();
-              announcement.textContent = `Moving to ${currentPhrase()}.`;
-              schedule(timings.type);
-              return;
-            }
-
-            schedule(timings.delete);
-          }
-        }
-
-        function handleMotionPreferenceChange(event) {
-          state.reducedMotion = event.matches;
-          if (state.reducedMotion) {
-            finishStaticState();
-            return;
-          }
-          startSequence();
-        }
-
-        replayBtn.addEventListener("click", resetSequence);
-
-        if (typeof reducedMotionQuery.addEventListener === "function") {
-          reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);
-        } else if (typeof reducedMotionQuery.addListener === "function") {
-          reducedMotionQuery.addListener(handleMotionPreferenceChange);
-        }
-
-        if (state.reducedMotion) {
-          finishStaticState();
-        } else {
-          startSequence();
-        }
+        dateEl.textContent = formatted;
+        announcement.textContent = `오늘 날짜는 ${formatted} 입니다.`;
       })();
     </script>
   </body>
 </html>
-
-
-
-
-
-
