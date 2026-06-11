@@ -1,0 +1,701 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Dark Neon Typing Demo</title>
+    <style>
+      :root {
+        --bg-0: #050816;
+        --bg-1: #080d1b;
+        --bg-2: #0c1125;
+        --surface: rgba(11, 15, 30, 0.72);
+        --surface-strong: rgba(13, 18, 37, 0.88);
+        --line: rgba(255, 255, 255, 0.09);
+        --text: rgba(250, 253, 255, 0.96);
+        --muted: rgba(214, 224, 255, 0.66);
+        --muted-strong: rgba(226, 233, 255, 0.8);
+        --accent-cyan: #4de0ff;
+        --accent-violet: #8a79ff;
+        --accent-pink: #ff7ec8;
+        --glow: rgba(77, 224, 255, 0.18);
+        --pointer-x: 0;
+        --pointer-y: 0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        color-scheme: dark;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: Inter, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(circle at 15% 20%, rgba(77, 224, 255, 0.18), transparent 24%),
+          radial-gradient(circle at 80% 18%, rgba(138, 121, 255, 0.18), transparent 22%),
+          radial-gradient(circle at 50% 82%, rgba(255, 126, 200, 0.12), transparent 28%),
+          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 48%, #04050b 100%);
+        color: var(--text);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 68px 68px;
+        mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
+        opacity: 0.25;
+        z-index: 0;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at center, transparent 50%, rgba(4, 5, 11, 0.34) 100%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 14%, transparent 86%, rgba(255, 255, 255, 0.02));
+        mix-blend-mode: screen;
+        z-index: 0;
+      }
+
+      .shell {
+        position: relative;
+        isolation: isolate;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.25rem;
+        padding: clamp(1rem, 2vw, 2rem);
+      }
+
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(42px);
+        opacity: 0.72;
+        pointer-events: none;
+        mix-blend-mode: screen;
+        z-index: 0;
+      }
+
+      .orb.a {
+        width: min(42vw, 34rem);
+        aspect-ratio: 1;
+        top: -10rem;
+        left: -8rem;
+        background: radial-gradient(circle, rgba(77, 224, 255, 0.62) 0%, rgba(77, 224, 255, 0) 68%);
+        animation: drift-a 18s ease-in-out infinite alternate;
+      }
+
+      .orb.b {
+        width: min(34vw, 28rem);
+        aspect-ratio: 1;
+        top: 8%;
+        right: -8rem;
+        background: radial-gradient(circle, rgba(138, 121, 255, 0.62) 0%, rgba(138, 121, 255, 0) 70%);
+        animation: drift-b 21s ease-in-out infinite alternate;
+      }
+
+      .orb.c {
+        width: min(30vw, 24rem);
+        aspect-ratio: 1;
+        bottom: -8rem;
+        left: 36%;
+        background: radial-gradient(circle, rgba(255, 126, 200, 0.52) 0%, rgba(255, 126, 200, 0) 72%);
+        animation: drift-c 19s ease-in-out infinite alternate;
+      }
+
+      @keyframes drift-a {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(1.6rem, 2.4rem, 0) scale(1.06);
+        }
+      }
+
+      @keyframes drift-b {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(-1.8rem, 1.2rem, 0) scale(1.1);
+        }
+      }
+
+      @keyframes drift-c {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        to {
+          transform: translate3d(1.2rem, -1.4rem, 0) scale(1.08);
+        }
+      }
+
+      .topbar,
+      .stage,
+      .footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 1.5rem;
+        width: min(100%, 1200px);
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.55rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(226, 233, 255, 0.58);
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1.3rem, 2vw, 1.9rem);
+        line-height: 1.05;
+        letter-spacing: -0.05em;
+        color: var(--text);
+      }
+
+      .lede {
+        margin: 0;
+        max-width: 28rem;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 0.98rem;
+        text-align: right;
+      }
+
+      .stage {
+        flex: 1;
+        display: grid;
+        place-items: center;
+        width: 100%;
+      }
+
+      .demo-card {
+        position: relative;
+        width: min(100%, 1140px);
+        padding: clamp(1.4rem, 3.4vw, 3rem);
+        border-radius: 32px;
+        border: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(14, 18, 36, 0.86), rgba(9, 12, 24, 0.72)),
+          radial-gradient(circle at 50% 0%, rgba(77, 224, 255, 0.08), transparent 45%);
+        box-shadow:
+          0 28px 80px rgba(0, 0, 0, 0.48),
+          inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(28px);
+        overflow: hidden;
+      }
+
+      .demo-card::before {
+        content: "";
+        position: absolute;
+        inset: 1px;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(77, 224, 255, 0.05), transparent 28%, transparent 72%, rgba(255, 126, 200, 0.04));
+        pointer-events: none;
+      }
+
+      .status-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.7rem;
+        margin-bottom: 2rem;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.68rem 0.92rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.11);
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(239, 244, 255, 0.8);
+        font-size: 0.77rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        backdrop-filter: blur(16px);
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+      }
+
+      .chip::before {
+        content: "";
+        width: 0.44rem;
+        height: 0.44rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 0 0 0.22rem rgba(255, 255, 255, 0.08);
+      }
+
+      body[data-mode="typing"] .chip.mode {
+        border-color: rgba(77, 224, 255, 0.32);
+        background: rgba(77, 224, 255, 0.12);
+        color: #dbfbff;
+      }
+
+      body[data-mode="typing"] .chip.mode::before {
+        background: var(--accent-cyan);
+        box-shadow: 0 0 0 0.22rem rgba(77, 224, 255, 0.18);
+      }
+
+      body[data-mode="pause"] .chip.mode {
+        border-color: rgba(138, 121, 255, 0.34);
+        background: rgba(138, 121, 255, 0.14);
+        color: #ece8ff;
+      }
+
+      body[data-mode="pause"] .chip.mode::before {
+        background: var(--accent-violet);
+        box-shadow: 0 0 0 0.22rem rgba(138, 121, 255, 0.18);
+      }
+
+      body[data-mode="deleting"] .chip.mode {
+        border-color: rgba(255, 126, 200, 0.3);
+        background: rgba(255, 126, 200, 0.12);
+        color: #ffe5f3;
+      }
+
+      body[data-mode="deleting"] .chip.mode::before {
+        background: var(--accent-pink);
+        box-shadow: 0 0 0 0.22rem rgba(255, 126, 200, 0.16);
+      }
+
+      body[data-mode="stable"] .chip.mode {
+        border-color: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.07);
+        color: var(--muted-strong);
+      }
+
+      body[data-mode="stable"] .chip.mode::before {
+        background: rgba(255, 255, 255, 0.76);
+        box-shadow: 0 0 0 0.22rem rgba(255, 255, 255, 0.12);
+      }
+
+      .typing-area {
+        display: grid;
+        place-items: center;
+        gap: 1.2rem;
+        text-align: center;
+        min-height: min(48vh, 34rem);
+      }
+
+      .typing-line {
+        margin: 0;
+        max-width: 13ch;
+        font-size: clamp(2.8rem, 6.8vw, 7.2rem);
+        line-height: 0.92;
+        letter-spacing: -0.09em;
+        font-weight: 750;
+        text-wrap: balance;
+        text-shadow: 0 0 24px rgba(77, 224, 255, 0.08);
+      }
+
+      .typed {
+        background: linear-gradient(90deg, #f9fbff 0%, #d7fbff 26%, #98d8ff 52%, #d9c9ff 74%, #fff2fb 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .caret {
+        display: inline-block;
+        width: 0.16em;
+        height: 0.92em;
+        margin-left: 0.1em;
+        border-radius: 0.12em;
+        background: linear-gradient(180deg, var(--accent-cyan), var(--accent-violet));
+        vertical-align: -0.08em;
+        box-shadow: 0 0 18px rgba(77, 224, 255, 0.42);
+        animation: blink 1s steps(1) infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .support {
+        margin: 0;
+        max-width: 38rem;
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.6;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+      }
+
+      .replay {
+        appearance: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(135deg, rgba(77, 224, 255, 0.15), rgba(138, 121, 255, 0.22));
+        color: #ffffff;
+        border-radius: 999px;
+        padding: 0.92rem 1.25rem;
+        font: inherit;
+        font-size: 0.92rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        box-shadow:
+          0 18px 42px rgba(0, 0, 0, 0.32),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, filter 180ms ease;
+      }
+
+      .replay:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow:
+          0 22px 56px rgba(0, 0, 0, 0.38),
+          0 0 30px rgba(77, 224, 255, 0.14),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        filter: brightness(1.05);
+      }
+
+      .replay:focus-visible {
+        outline: 2px solid rgba(77, 224, 255, 0.5);
+        outline-offset: 4px;
+      }
+
+      .footer {
+        width: min(100%, 1200px);
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.75rem 1.25rem;
+        color: rgba(214, 224, 255, 0.58);
+        font-size: 0.76rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @media (max-width: 900px) {
+        .topbar {
+          flex-direction: column;
+        }
+
+        .lede {
+          text-align: left;
+          max-width: 34rem;
+        }
+
+        .typing-area {
+          min-height: min(42vh, 30rem);
+        }
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          padding: 0.85rem;
+        }
+
+        .demo-card {
+          border-radius: 26px;
+          padding: 1.15rem;
+        }
+
+        .status-row {
+          gap: 0.55rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .chip {
+          padding: 0.58rem 0.78rem;
+          font-size: 0.7rem;
+        }
+
+        .typing-line {
+          max-width: 12ch;
+          font-size: clamp(2.35rem, 12vw, 4.75rem);
+          line-height: 0.94;
+        }
+
+        .support {
+          font-size: 0.92rem;
+        }
+
+        .footer {
+          font-size: 0.7rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .orb,
+        .caret,
+        .replay,
+        .chip {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body data-mode="typing">
+    <div class="shell">
+      <span class="orb a" aria-hidden="true"></span>
+      <span class="orb b" aria-hidden="true"></span>
+      <span class="orb c" aria-hidden="true"></span>
+
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Framer-style typing demo</p>
+          <p class="title">Dark neon typewriter stage</p>
+        </div>
+        <p class="lede">A single line types itself in the middle of a quiet, glowing stage so the motion feels like the whole interface.</p>
+      </header>
+
+      <main class="stage">
+        <section class="demo-card" aria-label="Animated typing demonstration">
+          <div class="status-row" aria-hidden="true">
+            <span class="chip mode" id="modeChip">typing</span>
+            <span class="chip" id="tempoChip">type 56ms / delete 34ms</span>
+            <span class="chip" id="progressChip">phrase 1 / 3</span>
+          </div>
+
+          <div class="typing-area">
+            <h1 class="typing-line" aria-label="Animated phrase">
+              <span class="typed" id="typedText"></span><span class="caret" aria-hidden="true"></span>
+            </h1>
+            <p class="support">Watch the line reveal, pause, erase, and restart. The background stays low-key so the typing can own the scene.</p>
+            <div class="actions">
+              <button class="replay" id="replayBtn" type="button">Replay sequence</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Auto looping</span>
+        <span>Keyboard friendly</span>
+        <span>Reduced-motion aware</span>
+      </footer>
+
+      <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    </div>
+
+    <script>
+      (() => {
+        const phrases = [
+          "Crafting smooth interactions",
+          "Designing motion with clarity",
+          "Building calm, living interfaces"
+        ];
+
+        const timings = {
+          type: 56,
+          delete: 34,
+          pause: 1200
+        };
+
+        const typedText = document.getElementById("typedText");
+        const modeChip = document.getElementById("modeChip");
+        const tempoChip = document.getElementById("tempoChip");
+        const progressChip = document.getElementById("progressChip");
+        const replayBtn = document.getElementById("replayBtn");
+        const announcement = document.getElementById("announcement");
+        const body = document.body;
+        const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const state = {
+          mode: reducedMotionQuery.matches ? "stable" : "typing",
+          phraseIndex: 0,
+          charIndex: 0,
+          loopCount: 0,
+          timerId: null,
+          reducedMotion: reducedMotionQuery.matches
+        };
+
+        function clearTimer() {
+          if (state.timerId !== null) {
+            window.clearTimeout(state.timerId);
+            state.timerId = null;
+          }
+        }
+
+        function schedule(delay) {
+          clearTimer();
+          state.timerId = window.setTimeout(step, delay);
+        }
+
+        function currentPhrase() {
+          return phrases[state.phraseIndex];
+        }
+
+        function updateView() {
+          const phrase = currentPhrase();
+          typedText.textContent = phrase.slice(0, state.charIndex);
+          body.dataset.mode = state.mode;
+          modeChip.textContent = state.mode;
+          tempoChip.textContent = state.reducedMotion
+            ? "motion off"
+            : `type ${timings.type}ms / delete ${timings.delete}ms`;
+          progressChip.textContent = state.reducedMotion
+            ? `phrase 1 / ${phrases.length}`
+            : `phrase ${state.phraseIndex + 1} / ${phrases.length}`;
+          typedText.parentElement.setAttribute("aria-label", `Animated phrase: ${phrase}`);
+        }
+
+        function finishStaticState() {
+          clearTimer();
+          state.mode = "stable";
+          state.phraseIndex = 0;
+          state.charIndex = phrases[0].length;
+          updateView();
+          announcement.textContent = `Reduced motion mode enabled. Showing ${phrases[0]}.`;
+        }
+
+        function startSequence() {
+          clearTimer();
+          state.mode = "typing";
+          state.phraseIndex = 0;
+          state.charIndex = 0;
+          state.loopCount = 0;
+          updateView();
+          announcement.textContent = `Typing ${currentPhrase()}.`;
+          schedule(timings.type);
+        }
+
+        function resetSequence() {
+          if (state.reducedMotion) {
+            finishStaticState();
+            announcement.textContent = `Sequence reset. ${phrases[0]} remains visible in reduced motion mode.`;
+            return;
+          }
+
+          startSequence();
+          announcement.textContent = `Sequence restarted. ${currentPhrase()} is typing again.`;
+        }
+
+        function step() {
+          const phrase = currentPhrase();
+
+          if (state.mode === "typing") {
+            state.charIndex += 1;
+            updateView();
+
+            if (state.charIndex >= phrase.length) {
+              state.charIndex = phrase.length;
+              state.mode = "pause";
+              updateView();
+              announcement.textContent = `Paused on ${phrase}.`;
+              schedule(timings.pause);
+              return;
+            }
+
+            schedule(timings.type);
+            return;
+          }
+
+          if (state.mode === "pause") {
+            state.mode = "deleting";
+            updateView();
+            announcement.textContent = `Deleting ${phrase}.`;
+            schedule(timings.delete);
+            return;
+          }
+
+          if (state.mode === "deleting") {
+            state.charIndex -= 1;
+            if (state.charIndex < 0) {
+              state.charIndex = 0;
+            }
+            updateView();
+
+            if (state.charIndex === 0) {
+              state.phraseIndex = (state.phraseIndex + 1) % phrases.length;
+              if (state.phraseIndex === 0) {
+                state.loopCount += 1;
+              }
+              state.mode = "typing";
+              updateView();
+              announcement.textContent = `Moving to ${currentPhrase()}.`;
+              schedule(timings.type);
+              return;
+            }
+
+            schedule(timings.delete);
+          }
+        }
+
+        function handleMotionPreferenceChange(event) {
+          state.reducedMotion = event.matches;
+          if (state.reducedMotion) {
+            finishStaticState();
+            return;
+          }
+          startSequence();
+        }
+
+        replayBtn.addEventListener("click", resetSequence);
+
+        if (typeof reducedMotionQuery.addEventListener === "function") {
+          reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);
+        } else if (typeof reducedMotionQuery.addListener === "function") {
+          reducedMotionQuery.addListener(handleMotionPreferenceChange);
+        }
+
+        if (state.reducedMotion) {
+          finishStaticState();
+        } else {
+          startSequence();
+        }
+      })();
+    </script>
+  </body>
+</html>
+
